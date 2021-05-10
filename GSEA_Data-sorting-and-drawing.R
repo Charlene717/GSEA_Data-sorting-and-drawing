@@ -35,7 +35,10 @@ GSEA_Result_5 <- GSEA_Result_4[order(GSEA_Result_4$NES),]
 ## Export the Sorting data
 
 GSEA_Result_6 <- GSEA_Result_5[1:length(GSEA_Result_5[,1]),]
-#GSEA_Result_6 <- GSEA_Result_5[1:30,]
+GSEA_Result_6 <- GSEA_Result_5[1:50,]
+# GSEA_Result_6 <- GSEA_Result_6[-which(is.na(GSEA_Result_6$Pathway)), ]
+# GSEA_Result_6 <- GSEA_Result_6[-which(GSEA_Result_6$Pathway == ""), ]
+GSEA_Result_6 <- with(GSEA_Result_6, GSEA_Result_6[!(Pathway == "" | is.na(Pathway)), ])
 
 write.table(GSEA_Result_5,file=paste0(PathName,"/",FolderName,"_GSEA_Sorting.csv"),quote = FALSE,row.names = FALSE,col.names = FALSE, na = "",sep = ',')
 
@@ -68,7 +71,7 @@ GSEA_Result_6 %>%
 
 ## Save the plot
 
-pdf(paste0(PathName,"/",FolderName,"_GSEA_Sorting.pdf"))
+pdf(paste0(PathName,"/",FolderName,"_GSEA_Sorting.pdf"), width = 16, height = 12)
 GSEA_Result_6 %>%
   mutate(Pathway = fct_reorder(Pathway, NES)) %>%
   ggplot(aes(x=Pathway, y=NES)) +
@@ -80,7 +83,7 @@ GSEA_Result_6 %>%
 dev.off()
 
 
-png(paste0(PathName,"/",FolderName,"_GSEA_Sorting.png"))
+png(paste0(PathName,"/",FolderName,"_GSEA_Sorting.png"), width = 1024, height = 1024)
 GSEA_Result_6 %>%
   mutate(Pathway = fct_reorder(Pathway, NES)) %>%
   ggplot(aes(x=Pathway, y=NES)) +
