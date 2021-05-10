@@ -26,7 +26,8 @@ head(n_sub)                                          #n_sub是每個一級目錄(文件夾
 library(readxl)
 library(dplyr)
 
-merge_1 <- read.csv(paste0(PathName,dir[1],sep=""))
+#merge_1 <- read.csv(paste0(PathName,dir[1],sep=""))
+merge_1 <- read.delim(paste0(PathName,dir[1]),sep="\t") # 資料檔名
 
 for(i in 1:n){         #對於每個一級目錄(文件夾)
   b=list.files(dir[i]) #b是列出每個一級目錄(文件夾)中每個xlsx文件的名稱
@@ -35,7 +36,8 @@ for(i in 1:n){         #對於每個一級目錄(文件夾)
   
   for(j in 1:n_sub[i]){     #對於每個一級目錄(文件夾)下的每個txt文件
     #new_1 <- read.table(file=paste(PathName,dir[i],sep=""),fill = TRUE) #讀取xlsx文件
-    new_1 <- read.csv(paste0(PathName,dir[i],sep="")) #讀取xls文件
+#    new_1 <- read.csv(paste0(PathName,dir[i],sep="")) #讀取csv文件
+    new_1 <- read.csv(paste0(PathName,dir[i]),sep="\t") #讀取xls文件
 #    new_1<-new_1[-1:-2,1]     #因為實際數據需要，刪除第一行和第一列（根據實際讀取xlsx文件的情況進行修改）
   }
 
@@ -50,7 +52,8 @@ for(i in 1:n){         #對於每個一級目錄(文件夾)
 
 # ## GJ
 # test[!duplicated(test$x), ]
-unique_merge_1 <- merge_1[!duplicated(merge_1$GS.follow.link.to.MSigDB), ]
+#unique_merge_1 <- merge_1[!duplicated(merge_1$GS.follow.link.to.MSigDB), ]
+unique_merge_1 <- merge_1[!duplicated(merge_1[,2]), ]
 
 
 write.table(unique_merge_1,paste0(PathName,'/',FolderName,'_merge.txt'),
