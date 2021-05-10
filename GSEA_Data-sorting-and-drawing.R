@@ -31,7 +31,7 @@ GSEA_Result_4 <- GSEA_Result_3[,c(2,6:8)]
 colnames(GSEA_Result_4)[1] <- c("Pathway")
 
 # GSEA_Result_5 <- GSEA_Result_4[order(GSEA_Result_4$NES,-GSEA_Result_4$NOM.p.val),]
-GSEA_Result_5 <- GSEA_Result_4[order(GSEA_Result_4$NES),]
+GSEA_Result_5 <- GSEA_Result_4[order(-abs(GSEA_Result_4$NES)),]
 ## Export the Sorting data
 
 GSEA_Result_6 <- GSEA_Result_5[1:length(GSEA_Result_5[,1]),]
