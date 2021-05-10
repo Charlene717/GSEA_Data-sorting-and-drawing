@@ -11,6 +11,10 @@ PathName <- getwd() ## Set output directroy
 FolderName <- c("#_RhoA_BRCA_20210510")
 
 GSEA_Result_Ori <- read.csv(paste0(PathName,"/",FolderName,"_merge.csv"))
+# GSEA_Result_Ori <- read.delim(paste0(PathName,"/",FolderName,"_merge.tsv"),  # 資料檔名
+#                           header=T,          # 資料中的第一列，作為欄位名稱
+#                           sep="\t")
+
 title <- ("TCGA BRCA RhoA")
 
 ## Sorting data
